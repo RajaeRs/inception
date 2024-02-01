@@ -1,0 +1,16 @@
+I need ; 
+    build <image> :
+        nginx                       => TSLv1.3
+        wordPress   +   php-fph
+        mariaDB
+    build <volume> :
+        wordPress DataBase
+        wordPress website file
+    docker-network
+    
+
+wordPress requirement :
+    PHP 7.4 or greater
+    MySQL 5.7 or greater OR MariaDB 10.4 or greater
+    Nginx or Apache with mod_rewrite module
+    HTTPS support 
