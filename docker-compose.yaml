@@ -10,6 +10,8 @@ services:
       - mariadb-db:/var/lib/mysql/${MARIADB_DATABASE_NAME}
     env_file:
       - .env
+
 volumes:
   mariadb-db:
     driver: local
+
