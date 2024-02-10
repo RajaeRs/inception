@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mariadb:
+    build: 
+      context: ./src/requirements/mariadb
+      dockerfile: dockerfile
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb-db:/var/lib/mysql/${MARIADB_DATABASE_NAME}
+    env_file:
+      - .env
+volumes:
+  mariadb-db:
+    driver: local
