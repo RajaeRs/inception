@@ -7,11 +7,47 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - mariadb-db:/var/lib/mysql/${MARIADB_DATABASE_NAME}
+      - mariadb-db:/var/lib/mysql
+    env_file:
+      - .env
+  nginx:
+    build:
+      context: ./src/requirements/nginx
+      dockerfile: dockerfile
+    ports:
+      - 8080:80
+    volumes:
+      - wordPress-db:/var/www/html
+      - nginx_db:/etc/nginx
+    env_file:
+      - .env
+  wordpress:
+    build:
+      context: ./src/requirements/wordpress
+      dockerfile: dockerfile
+    ports:
+      - 9000:9000
+    volumes:
+      - wordPress-db:/var/www/html/wordpress
     env_file:
       - .env
 
 volumes:
   mariadb-db:
     driver: local
-
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/mariadb
+      o: bind
+  nginx_db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/nginx
+      o: bind
+  wordPress-db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/wp
+      o: bind
