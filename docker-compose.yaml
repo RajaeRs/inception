@@ -4,8 +4,6 @@ services:
     build: 
       context: ./src/requirements/mariadb
       dockerfile: dockerfile
-    ports:
-      - 3306:3306
     volumes:
       - mariadb-db:/var/lib/mysql
     env_file:
@@ -21,16 +19,19 @@ services:
       - nginx_db:/etc/nginx
     env_file:
       - .env
+    depends_on:
+      - "mariadb"
+      - "wordpress"
   wordpress:
     build:
       context: ./src/requirements/wordpress
       dockerfile: dockerfile
-    ports:
-      - 9000:9000
     volumes:
-      - wordPress-db:/var/www/html/wordpress
+      - wordPress-db:/var/www/html
     env_file:
       - .env
+    depends_on:
+      - "mariadb"
 
 volumes:
   mariadb-db:

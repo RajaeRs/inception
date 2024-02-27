@@ -1,15 +1,15 @@
 FROM debian:bookworm
 
 RUN apt update -y
-RUN apt install -y wget; apt install -y php; apt install -y php-fpm; apt install -y mariadb-client
+RUN apt install -y wget; apt install -y php-fpm php-mysql mariadb-client;
 RUN sed -i 's/listen = \/run\/php\/php8.2-fpm.sock/listen = 0.0.0.0:9000/' /etc/php/8.2/fpm/pool.d/www.conf;
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-RUN mkdir /var/www/html/wordpress
-WORKDIR /var/www/html/wordpress
+# RUN mkdir /var/www/html/wordpress
+WORKDIR /var/www/html
 
 COPY ./tools/entrypoint_script.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint_script.sh
