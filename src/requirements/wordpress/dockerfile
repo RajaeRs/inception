@@ -14,5 +14,5 @@ WORKDIR /var/www/html
 COPY ./tools/entrypoint_script.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint_script.sh
 ENTRYPOINT ["entrypoint_script.sh"]
-
+EXPOSE 9000
 CMD ["php-fpm8.2", "-F"]

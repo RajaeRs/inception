@@ -6,7 +6,7 @@ RUN apt install -y nginx
 
 RUN apt install -y vim
 
-# COPY ./tools/test.html /var/www/html/test.html
+COPY ./tools/test.html /var/www/html/test.html
 
 COPY ./tools/configuration.conf /etc/nginx/sites-available/configuration.conf
 

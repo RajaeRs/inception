@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   mariadb:
     container_name: mariadb
@@ -66,4 +66,5 @@ volumes:
 
 networks:
   my_network:
+    name: my_network
     driver: bridge
