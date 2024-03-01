@@ -20,7 +20,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - wordPress-db:/var/www/html
+      - wordPress-db:/var/www/html/
       - nginx_db:/etc/nginx
     env_file:
       - .env
@@ -36,7 +36,7 @@ services:
       context: ./src/requirements/wordpress
       dockerfile: dockerfile
     volumes:
-      - wordPress-db:/var/www/html
+      - wordPress-db:/var/www/html/
     env_file:
       - .env
     depends_on:
@@ -49,19 +49,19 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/mariadb
+      device: /workspaces/inception/data/mariadb
       o: bind
   nginx_db:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/nginx
+      device: /workspaces/inception/data/nginx
       o: bind
   wordPress-db:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/wp
+      device: /workspaces/inception/data/wp
       o: bind
 
 networks:
