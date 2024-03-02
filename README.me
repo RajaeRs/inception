@@ -5,7 +5,7 @@ BUILD IMAGES:
 | status |   images name               |
 |______________________________________|
 |  OK    |    nginx => TSLv1.3         |
-|        |    wordPress + php-fpm.     |
+|  OK    |    wordPress + php-fpm.     |
 |  OK    |    mariaDB                  |
 |______________________________________|
 
@@ -13,7 +13,7 @@ BUILD VOLUMES:
  ______________________________________
 | status |   volumes name              |
 |______________________________________|
-|        |    wordPress DataBase       |
+|   OK   |    wordPress DataBase       |
 |   OK   |    nginx conf file          |
 |   OK   |    mariaDB DataBase         |
 |______________________________________|
@@ -22,18 +22,6 @@ BUILD NETWORK:
  ______________________________________
 | status |   network name              |
 |______________________________________|
-|        |    docker-network           |
+|   OK   |    docker-network           |
 |______________________________________|
 
-
-wordPress requirement :
-    PHP 7.4 or greater
-    MySQL 5.7 or greater OR MariaDB 10.4 or greater
-    Nginx or Apache with mod_rewrite module
-    HTTPS support 
-
-test
-
-add php-mysql att dockerfile of wordpress
-change conf of nginx 
-add IDENTIFIED BY PASSWORD in FLUSH PREV of entrypoint_script of mariadb

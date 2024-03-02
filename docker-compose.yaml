@@ -14,24 +14,26 @@ services:
 
   nginx:
     container_name: nginx
+    depends_on:
+      - "mariadb"
+      - "wordpress"
     build:
       context: ./src/requirements/nginx
       dockerfile: dockerfile
     ports:
-      - 8080:80
+      - 80:80
     volumes:
       - wordPress-db:/var/www/html/
       - nginx_db:/etc/nginx
     env_file:
       - .env
-    depends_on:
-      - "mariadb"
-      - "wordpress"
     networks:
       - my_network
 
   wordpress:
     container_name: wordpress
+    depends_on:
+      - "mariadb"
     build:
       context: ./src/requirements/wordpress
       dockerfile: dockerfile
@@ -39,29 +41,30 @@ services:
       - wordPress-db:/var/www/html/
     env_file:
       - .env
-    depends_on:
-      - "mariadb"
     networks:
       - my_network
 
 volumes:
   mariadb-db:
+    name: mariadb-db
     driver: local
     driver_opts:
       type: none
-      device: /workspaces/inception/data/mariadb
+      device: /home/${USER}/data/mariadb
       o: bind
   nginx_db:
+    name: nginx_db
     driver: local
     driver_opts:
       type: none
-      device: /workspaces/inception/data/nginx
+      device: /home/${USER}/data/nginx
       o: bind
   wordPress-db:
+    name: wordPress-db
     driver: local
     driver_opts:
       type: none
-      device: /workspaces/inception/data/wp
+      device: /home/${USER}/data/wp
       o: bind
 
 networks:
