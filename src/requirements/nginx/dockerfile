@@ -6,14 +6,14 @@ RUN apt install -y nginx
 
 RUN apt install -y vim
 
-COPY ./tools/test.html /var/www/html/test.html
-
-COPY ./tools/configuration.conf /etc/nginx/sites-available/configuration.conf
+COPY ./conf/configuration.conf /etc/nginx/sites-available/configuration.conf
 
 RUN rm /etc/nginx/sites-enabled/*
 
 RUN ln -s /etc/nginx/sites-available/configuration.conf /etc/nginx/sites-enabled/
 
-EXPOSE 80
+ADD ./tools /etc/nginx/certs/self-signed
+
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -3,12 +3,26 @@ services:
   mariadb:
     container_name: mariadb
     build: 
-      context: ./src/requirements/mariadb
+      context: ./requirements/mariadb
       dockerfile: dockerfile
     volumes:
-      - mariadb-db:/var/lib/mysql
+      - mariadb_db:/var/lib/mysql
     env_file:
-      - .env
+      - ./.env
+    networks:
+      - my_network
+
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - "mariadb"
+    build:
+      context: ./requirements/wordpress
+      dockerfile: dockerfile
+    volumes:
+      - wordPress_db:/var/www/html/
+    env_file:
+      - ./.env
     networks:
       - my_network
 
@@ -18,49 +32,27 @@ services:
       - "mariadb"
       - "wordpress"
     build:
-      context: ./src/requirements/nginx
+      context: ./requirements/nginx
       dockerfile: dockerfile
     ports:
-      - 80:80
+      - 443:443
     volumes:
-      - wordPress-db:/var/www/html/
-      - nginx_db:/etc/nginx
+      - wordPress_db:/var/www/html/
     env_file:
-      - .env
-    networks:
-      - my_network
-
-  wordpress:
-    container_name: wordpress
-    depends_on:
-      - "mariadb"
-    build:
-      context: ./src/requirements/wordpress
-      dockerfile: dockerfile
-    volumes:
-      - wordPress-db:/var/www/html/
-    env_file:
-      - .env
+      - ./.env
     networks:
       - my_network
 
 volumes:
-  mariadb-db:
-    name: mariadb-db
+  mariadb_db:
+    name: mariadb_db
     driver: local
     driver_opts:
       type: none
       device: /home/${USER}/data/mariadb
       o: bind
-  nginx_db:
-    name: nginx_db
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/${USER}/data/nginx
-      o: bind
-  wordPress-db:
-    name: wordPress-db
+  wordPress_db:
+    name: wordPress_db
     driver: local
     driver_opts:
       type: none

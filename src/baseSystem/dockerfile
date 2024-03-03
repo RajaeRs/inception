@@ -1,8 +1,0 @@
-FROM debian:bookworm
-
-# RUN apt-get update  && apt install vim -y
-
-# ENTRYPOINT ["/bin/sh" "yes"]
-
-# ENTRYPOINT [ "vim" ]
-# CMD [ "hi" ]

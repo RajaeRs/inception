@@ -8,10 +8,15 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-WORKDIR /var/www/html
-
 COPY ./tools/entrypoint_script.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint_script.sh
-ENTRYPOINT ["entrypoint_script.sh"]
+
+WORKDIR /var/www/html
+RUN chmod -R 755 /var/www/html/
+RUN chown -R www-data:www-data /var/www/html/
+
 EXPOSE 9000
+
+ENTRYPOINT ["entrypoint_script.sh"]
+
 CMD ["php-fpm8.2", "-F"]
