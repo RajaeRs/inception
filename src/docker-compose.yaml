@@ -11,11 +11,20 @@ services:
       - ./.env
     networks:
       - my_network
+    
+  redis:
+    container_name: redis
+    build:
+      context: ./requirements/bonus/redis
+      dockerfile: dockerfile
+    networks:
+      - my_network
 
   wordpress:
     container_name: wordpress
     depends_on:
       - "mariadb"
+      - "redis"
     build:
       context: ./requirements/wordpress
       dockerfile: dockerfile

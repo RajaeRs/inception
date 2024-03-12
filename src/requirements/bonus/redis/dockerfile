@@ -1,0 +1,18 @@
+FROM debian:bookworm
+
+RUN apt update
+
+RUN apt install -y redis
+
+RUN sed -i "s/bind 127.0.0.1/bind 0.0.0.0/" /etc/redis/redis.conf;
+RUN sed -i "s/protected-mode yes/protected-mode no/" /etc/redis/redis.conf;
+
+COPY ./tools/entrypoint_script.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/entrypoint_script.sh
+
+EXPOSE 6379
+
+ENTRYPOINT ["entrypoint_script.sh"]
+
+CMD ["redis-server"]

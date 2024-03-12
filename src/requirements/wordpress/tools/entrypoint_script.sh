@@ -15,6 +15,13 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp config shuffle-salts --allow-root;
     wp core install --allow-root  --url=${DOMAIN_NAME} --title=${TITLE} --admin_user=${ADMIN_NAME} --admin_password=${ADMIN_PASSWORD} --admin_email=${ADMIN_EMAIL};
     wp user create --allow-root ${USER_NAME} ${USER_EMAIL} --role=editor --porcelain;
+
+    wp --allow-root config set WP_REDIS_HOST redis;
+    wp --allow-root config set WP_REDIS_PORT 6379;
+    wp --allow-root config set WP_CACHE true;
+    wp --allow-root plugin install redis-cache --activate;
+    wp --allow-root redis enable;
+
     chmod -R 755 /var/www/html/;
     chown -R www-data:www-data /var/www/html/;
 else
