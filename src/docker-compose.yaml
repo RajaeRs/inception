@@ -20,6 +20,19 @@ services:
     networks:
       - my_network
 
+  ftp:
+    container_name: ftp
+    build:
+      context: ./requirements/bonus/ftp
+      dockerfile: dockerfile
+    volumes:
+      - wordPress_db:/wordPress_db:ro
+    networks:
+      - my_network
+    # ports:
+    #   - "21:21"
+    #   # - "20:20"
+
   wordpress:
     container_name: wordpress
     depends_on:

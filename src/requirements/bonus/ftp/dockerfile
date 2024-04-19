@@ -1,0 +1,16 @@
+FROM        debian:bookworm
+
+RUN apt-get update && \
+    apt-get install -y vsftpd
+
+COPY conf/vsftpd.conf /etc/vsftpd.conf
+
+COPY ./tools/entrypoint_script.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/entrypoint_script.sh
+
+EXPOSE 21
+
+ENTRYPOINT ["entrypoint_script.sh"]
+
+CMD ["vsftpd", "/etc/vsftpd.conf"]
