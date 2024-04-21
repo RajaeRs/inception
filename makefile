@@ -6,7 +6,7 @@ clean :
 
 fclean : clean
 	docker volume rm mariadb_db wordPress_db
-	docker rmi src-wordpress src-mariadb src-nginx src-redis src-ftp 
+	docker rmi src-wordpress src-mariadb src-nginx src-redis src-ftp src-adminer
 	sudo rm -r -- /home/rajae/data/mariadb/* /home/rajae/data/wp/*
 
 re : fclean all
