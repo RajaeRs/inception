@@ -17,6 +17,9 @@ RUN chown -R www-data:www-data /var/www/html/
 
 EXPOSE 9000
 
+# RUN wp core download --allow-root
+# RUN wp core download --path=/var/www/html --locale=en_US --allow-root;
+
 ENTRYPOINT ["entrypoint_script.sh"]
 
 CMD ["php-fpm8.2", "-F"]

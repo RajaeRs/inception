@@ -26,12 +26,11 @@ services:
       context: ./requirements/bonus/ftp
       dockerfile: dockerfile
     volumes:
-      - wordPress_db:/wordPress_db:ro
+      - wordPress_db:/wordPress_db
     networks:
       - my_network
-    # ports:
-    #   - "21:21"
-    #   # - "20:20"
+    depends_on:
+      - "wordpress"
 
   wordpress:
     container_name: wordpress
@@ -47,6 +46,16 @@ services:
       - ./.env
     networks:
       - my_network
+
+  # adminer:
+  #   container_name: adminer
+  #   build:
+  #     context: ./requirements/bonus/adminer
+  #     dockerfile: dockerfile
+  #   volumes:
+  #     - mariadb_db:/
+  #   networks:
+  #     - my_network
 
   nginx:
     container_name: nginx

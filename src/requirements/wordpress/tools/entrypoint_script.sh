@@ -22,8 +22,9 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp --allow-root plugin install redis-cache --activate;
     wp --allow-root redis enable;
 
-    chmod -R 755 /var/www/html/;
-    chown -R www-data:www-data /var/www/html/;
+    adduser --home /var/www/html/ --shell /bin/false --ingroup www-data --disabled-password --gecos "" rajae
+    chmod -R g+rw /var/www/html
+    chown -R www-data:www-data /var/www/html/
 else
     echo -e "${RED}[!] --------- Alredy exist --------- [!]${RESET}"
 fi
