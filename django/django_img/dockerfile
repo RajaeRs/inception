@@ -1,0 +1,21 @@
+FROM debian:bookworm
+
+RUN apt update 
+RUN apt upgrade -y
+
+RUN apt install -y python3
+RUN apt install -y python3-pip
+RUN rm /usr/lib/python3.11/EXTERNALLY-MANAGED
+# RUN python3 -m venv venv
+# RUN source venv/bin/activate
+RUN pip install django
+WORKDIR /var/www/html
+
+
+
+# COPY ./tools/entrypoint_script.sh /usr/local/bin/
+# RUN chmod +x /usr/local/bin/entrypoint_script.sh
+
+# ENTRYPOINT ["entrypoint_script.sh"]
+
+CMD ["python3"]
