@@ -9,15 +9,10 @@ RUN apt install -y git
 RUN rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 RUN pip install django
 WORKDIR /var/www/html
-# RUN django-admin startproject demo
-RUN git clone https://github.com/RajaeRs/django_database_testing.git demo
-WORKDIR ./demo
-RUN python3 manage.py migrate
 
+COPY ./tools/entrypoint_script.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint_script.sh
 
-# COPY ./tools/entrypoint_script.sh /usr/local/bin/
-# RUN chmod +x /usr/local/bin/entrypoint_script.sh
-
-# ENTRYPOINT ["entrypoint_script.sh"]
+ENTRYPOINT ["entrypoint_script.sh"]
 
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]

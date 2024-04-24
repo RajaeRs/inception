@@ -1,5 +1,17 @@
 version: '3.8'
 services:
+  django:
+    container_name: django
+    build:
+      context: ./requirements/bonus/django
+      dockerfile: dockerfile
+    volumes:
+      - django_db:/var/www/html
+    networks:
+      - my_network
+    ports:
+      - 8000:8000
+
   mariadb:
     container_name: mariadb
     build: 
@@ -71,7 +83,6 @@ services:
       dockerfile: dockerfile
     ports:
       - 443:443
-      # - 8080:8080
     volumes:
       - wordPress_db:/var/www/html/
     env_file:
@@ -85,17 +96,27 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/mariadb
+      device: /workspaces/inception/data/mariadb
       o: bind
   wordPress_db:
     name: wordPress_db
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/wp
+      device: /workspaces/inception/data/wp
+      o: bind
+  django_db:
+    name: django_db
+    driver: local
+    driver_opts:
+      type: none
+      device: /workspaces/inception/data/django
       o: bind
 
 networks:
   my_network:
     name: my_network
     driver: bridge
+
+
+# /home/${USER}/data/wp
