@@ -72,12 +72,26 @@ services:
     networks:
       - my_network
 
+  cadvisor:
+    container_name: cadvisor
+    build: 
+      context: ./requirements/bonus/cadvisor
+      dockerfile: dockerfile
+    networks:
+      - my_network
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro 
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
   nginx:
     container_name: nginx
     depends_on:
       - "mariadb"
       - "wordpress"
       - "adminer"
+      - "cadvisor"
     build:
       context: ./requirements/nginx
       dockerfile: dockerfile
@@ -96,27 +110,25 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /workspaces/inception/data/mariadb
+      device: /home/${USER}/data/mariadb
       o: bind
   wordPress_db:
     name: wordPress_db
     driver: local
     driver_opts:
       type: none
-      device: /workspaces/inception/data/wp
+      device: /home/${USER}/data/wp
       o: bind
   django_db:
     name: django_db
     driver: local
     driver_opts:
       type: none
-      device: /workspaces/inception/data/django
+      device: /home/${USER}/data/django
       o: bind
+
 
 networks:
   my_network:
     name: my_network
     driver: bridge
-
-
-# /home/${USER}/data/wp

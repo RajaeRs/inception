@@ -14,7 +14,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp config create --allow-root --dbname=${MARIADB_DATABASE_NAME} --dbuser=${MARIADB_USER_NAME} --dbpass=${MARIADB_USER_PASSWORD} --dbhost=mariadb:3306;
     wp config shuffle-salts --allow-root;
     wp core install --allow-root  --url=${DOMAIN_NAME} --title=${TITLE} --admin_user=${ADMIN_NAME} --admin_password=${ADMIN_PASSWORD} --admin_email=${ADMIN_EMAIL};
-    wp user create --allow-root ${USER_NAME} ${USER_EMAIL} --role=editor --porcelain;
+    wp user create --allow-root ${USER_NAME} ${USER_EMAIL} --user_pass=${USER_PASS} --role=editor --porcelain;
 
     wp --allow-root config set WP_REDIS_HOST redis;
     wp --allow-root config set WP_REDIS_PORT 6379;
