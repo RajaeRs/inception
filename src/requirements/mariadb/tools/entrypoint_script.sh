@@ -9,6 +9,7 @@ set -e
 
 if [ ! -d /var/lib/mysql/${MARIADB_DATABASE_NAME} ]; then
     echo -e "${BLUE}First initialisation MariaDB ... ${RESET}"
+    export MARIADB_USER_PASSWORD=$(cat $FILE_PATH_MARIADB_PASS);
 
 mariadbd --user=mysql --bootstrap << EOF
 FLUSH PRIVILEGES;
@@ -17,6 +18,7 @@ CREATE USER '${MARIADB_USER_NAME}'@'%' IDENTIFIED BY '${MARIADB_USER_PASSWORD}';
 GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE_NAME}.* TO '${MARIADB_USER_NAME}'@'%';
 FLUSH PRIVILEGES;
 EOF
+    # unset MARIADB_USER_PASSWORD;
 else
     echo -e "${RED}[!] --------- Alredy exist --------- [!]${RESET}"
 fi

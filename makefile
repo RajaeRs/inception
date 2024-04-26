@@ -6,8 +6,8 @@ clean :
 	docker compose -f ./src/docker-compose.yaml down -v
 
 fclean : clean
-	docker rmi src-wordpress src-mariadb src-nginx src-redis src-ftp src-adminer src-django src-cadvisor
-	sudo rm -r -- /home/rajae/data/mariadb/* /home/rajae/data/wp/* /home/rajae/data/django/*
+	docker rmi wordpress mariadb nginx redis ftp adminer django cadvisor
+	sudo rm -r -- ${HOME}/data/mariadb/* ${HOME}/data/wp/* ${HOME}/data/django/*
 
 re : fclean all
 

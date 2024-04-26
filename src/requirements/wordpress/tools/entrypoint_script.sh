@@ -22,7 +22,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp --allow-root plugin install redis-cache --activate;
     wp --allow-root redis enable;
 
-    adduser --home /var/www/html/ --shell /bin/false --ingroup www-data --disabled-password --gecos "" rajae
+    adduser --home /var/www/html/ --shell /bin/false --ingroup www-data --disabled-password --gecos "" ${FTP_USER_NAME}
     chmod -R g+rw /var/www/html
     chown -R www-data:www-data /var/www/html/
 else
