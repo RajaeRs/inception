@@ -51,6 +51,8 @@ services:
       - "wordpress"
     env_file:
       - ./.env
+    secrets:
+      - ftp_pass
 
   adminer:
     container_name: adminer
@@ -81,6 +83,10 @@ services:
       - ./.env
     networks:
       - my_network
+    secrets:
+      - mariadb_pass
+      - admin_pass
+      - user_pass
 
   cadvisor:
     container_name: cadvisor
@@ -115,6 +121,9 @@ services:
       - ./.env
     networks:
       - my_network
+    secrets:
+      - rrasezin.42.fr.cert
+      - rrasezin.42.fr.key
     restart: always
 
 volumes:
@@ -123,23 +132,22 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/mariadb
+      device: ${HOME}/data/mariadb
       o: bind
   wordPress_db:
     name: wordPress_db
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/wp
+      device: ${HOME}/data/wp
       o: bind
   django_db:
     name: django_db
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/django
+      device: ${HOME}/data/django
       o: bind
-
 
 networks:
   my_network:
@@ -149,3 +157,13 @@ networks:
 secrets:
   mariadb_pass:
     file: ./../secrets/mariadb_pass.txt
+  admin_pass:
+    file: ./../secrets/admin_pass.txt
+  user_pass:
+    file: ./../secrets/user_pass.txt
+  ftp_pass:
+    file: ./../secrets/ftp_pass.txt
+  rrasezin.42.fr.cert:
+    file: ./../secrets/rrasezin.42.fr.cert
+  rrasezin.42.fr.key:
+    file: ./../secrets/rrasezin.42.fr.key

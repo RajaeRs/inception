@@ -1,5 +1,7 @@
 #!/bin/sh
 
+FTP_USER_PASS=$(cat $FILE_PATH_FTP_PASS)
+
 if [ ! -d "/var/run/vsftpd/empty" ]; then
      touch /etc/vsftpd.chroot_list;
      echo ${FTP_USER_NAME} | tee -a /etc/vsftpd.chroot_list

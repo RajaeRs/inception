@@ -12,8 +12,6 @@ RUN rm /etc/nginx/sites-enabled/*
 
 RUN ln -s /etc/nginx/sites-available/configuration.conf /etc/nginx/sites-enabled/
 
-ADD ./tools /etc/nginx/certs/self-signed
-
-EXPOSE 443 8080
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

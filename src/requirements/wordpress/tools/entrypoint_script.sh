@@ -6,6 +6,11 @@ RESET='\033[0m'
 RED='\033[91m'
 YELLOW='\033[93m'
 
+#passwords:
+MARIADB_USER_PASSWORD=$(cat $FILE_PATH_MARIADB_PASS)
+ADMIN_PASSWORD=$(cat $FILE_PATH_ADMIN_PASS)
+USER_PASS=$(cat $FILE_PATH_USER_PASS)
+
 set -e
 
 if [ ! -f /var/www/html/wp-config.php ]; then
