@@ -21,7 +21,7 @@ clean:
 fclean :
 	-docker compose -f ./src/docker-compose.yaml down -v
 	-docker rmi wordpress mariadb nginx redis ftp adminer django cadvisor
-	-sudo rm -r -- ${HOME}/data/mariadb/* ${HOME}/data/wp/* ${HOME}/data/django/*
+	-sudo rm -r -- $(DATA)/mariadb/* $(DATA)/wp/* $(DATA)/django/*
 	-rm ./secrets/*
 
 re : fclean all
